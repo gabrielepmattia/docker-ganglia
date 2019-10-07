@@ -30,21 +30,21 @@ RUN cd /usr/src && \
 
 # ganglia-core
 RUN cd /usr/src && \
-    wget -q http://downloads.sourceforge.net/ganglia/ganglia-3.6.0.tar.gz && \
-    tar xzf ganglia-3.6.0.tar.gz && \
-    cd /usr/src/ganglia-3.6.0 && \
+    wget -q http://downloads.sourceforge.net/ganglia/ganglia-3.7.2.tar.gz && \
+    tar xzf ganglia-3.7.2.tar.gz && \
+    cd /usr/src/ganglia-3.7.2 && \
     ./configure --prefix=/usr --sysconfdir=/etc/ganglia/ --sbindir=/usr/sbin/ --with-gmetad --enable-gexec --enable-status && \
     make && make install && ldconfig && \
-    rm -rf /usr/src/ganglia-3.6.0*
+    rm -rf /usr/src/ganglia-3.7.2*
 
 # ganglia-web
 RUN cd /usr/src && \
-    wget -q http://downloads.sourceforge.net/ganglia/ganglia-web-3.5.10.tar.gz && \
-    tar xzf ganglia-web-3.5.10.tar.gz && \
-    mv ganglia-web-3.5.10 /var/www/html/ganglia && \
+    wget -q http://downloads.sourceforge.net/ganglia/ganglia-web-3.7.2.tar.gz && \
+    tar xzf ganglia-web-3.7.2.tar.gz && \
+    mv ganglia-web-3.7.2 /var/www/html/ganglia && \
     cd /var/www/html/ganglia && \
-    make install && \
-    rm -rf /usr/src/ganglia-web-3.5.10*
+    make install APACHE_USER=apache && \
+    rm -rf /usr/src/ganglia-web-3.7.2*
 
 # add the ganglia user and group
 RUN useradd -r -U -d /var/lib/ganglia -s /bin/false ganglia
